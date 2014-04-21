@@ -1,6 +1,7 @@
 package org.foo.app.core;
 
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 /**
  * @author e.rossi
@@ -55,23 +57,6 @@ public class SwingApp extends javax.swing.JFrame {
 
 		clearButton = new JButton();
 		clearButton.setText("Clear");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addComponent(decodeButton, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-					.addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(decodeButton, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
 		
 		decodeButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,10 +86,10 @@ public class SwingApp extends javax.swing.JFrame {
 									.addComponent(encodedTextField, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(resultTextArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)))
+							.addComponent(resultTextArea, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -125,17 +110,36 @@ public class SwingApp extends javax.swing.JFrame {
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addComponent(decodeButton, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(clearButton, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(decodeButton, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addComponent(clearButton, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel.setLayout(gl_panel);
 		
 		lblInfo = new JLabel("Info");
+		lblInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				createAndShowGUI();
 			}
 		});
 		lblInfo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		panel_1.add(lblInfo);
 		
 		lblAbout = new JLabel("About");
+		lblAbout.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAbout.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblAbout.addMouseListener(new MouseAdapter() {
 			@Override
@@ -143,6 +147,8 @@ public class SwingApp extends javax.swing.JFrame {
 				System.out.printf("Today is %s", LocalDateTime.now().toString());
 			}
 		});
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_1.add(lblInfo);
 		panel_1.add(lblAbout);
 		getContentPane().setLayout(groupLayout);
 		pack();
@@ -162,7 +168,6 @@ public class SwingApp extends javax.swing.JFrame {
 	 * this method should be invoked from the
 	 * event-dispatching thread.
 	 */
-	@SuppressWarnings("unused")
 	private static void createAndShowGUI() {
 		JFrame frame = new JFrame("HelloWorldSwing");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
